@@ -1,0 +1,15 @@
+COPY ruta(idruta, idsolucion, frecuencia, flota, osm_id, osm_nombre) FROM '/home/administrador/Dropbox/CARGA_GRAL/UPLOAD/3_scripts/python/output_rutas.csv'WITH DELIMITER '|' CSV HEADER;
+COPY rutaxarista(idruta, idarista, paradero, orden) FROM '/home/administrador/Dropbox/CARGA_GRAL/UPLOAD/3_scripts/python/output_rutaxarista.csv'WITH DELIMITER '|' CSV HEADER;
+COPY rutaxminizona(idruta, idminizona) FROM '/home/administrador/Dropbox/CARGA_GRAL/UPLOAD/3_scripts/python/output_rutaxminizona.csv'WITH DELIMITER '|' CSV HEADER;
+
+ogr2ogr -f "ESRI Shapefile" ruta.SHP PG:"user=postgres dbname=rutas" -sql "SELECT a.geom FROM rutaxarista as ra, arista as a WHERE ra.idruta = 4471022 and ra.idarista=a.idarista"
+
+ogr2ogr -f "ESRI Shapefile" zona.SHP PG:"user=postgres dbname=rutas" -sql "SELECT zt.geom FROM rutaxarista as ra, arista as a, zonatransito zt WHERE ra.idruta = 4471022 AND ra.idarista=a.idarista AND ST_Crosses(a.geom, zt.geom)"
+
+SELECT a.geom FROM rutaxarista as ra, arista as a WHERE ra.idruta = 4471022 and ra.idarista=a.idarista;
+
+SELECT zt.geom FROM rutaxarista as ra, arista as a, zonatransito zt WHERE ra.idruta = 4471022 AND ra.idarista=a.idarista AND ST_Crosses(a.geom, zt.geom);
+
+SELECT DISTINCT ON (zt.idzonatransito) zt.idzonatransito FROM rutaxarista as ra, arista as a, zonatransito zt WHERE ra.idruta = 4471022 AND ra.idarista=a.idarista AND ST_Crosses(a.geom, zt.geom);
+
+psql -U postgres -d rutas -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy.sql 

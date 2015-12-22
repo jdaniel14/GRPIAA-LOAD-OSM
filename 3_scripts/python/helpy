@@ -1,0 +1,53 @@
+SELECT rw.relation_id, w.osm_id, w.source, w.target, ST_ASTEXT(w.the_geom), n1.lat, n1.lon, n2.lat, n2.lon
+FROM relation_ways rw, ways w, nodes n1, nodes n2
+WHERE 
+	rw.relation_id 	= ANY ('{4185910}'::int[]) AND 
+	rw.way_id 		= w.osm_id AND
+	n1.id			= w.source AND
+	n2.id			= w.target
+ORDER BY 1;
+
+SELECT rw.relation_id, w.osm_id, w.source, w.target, ST_ASTEXT(w.the_geom), n1.lat, n1.lon, n2.lat, n2.lon
+FROM relation_ways rw, ways w, nodes n1, nodes n2
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id AND n1.id = w.source AND n2.id	= w.target ORDER BY 1;
+
+SELECT rw.relation_id, w.osm_id, w.source, w.target, ST_ASTEXT(w.the_geom)
+FROM relation_ways rw, ways w
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id ORDER BY 1;
+
+1243
+
+SELECT DISTINCT ON (w.osm_id) w.osm_id
+FROM relation_ways rw, ways w
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id ;
+
+SELECT DISTINCT ON (w.source, w.target) w.source, w.target
+FROM relation_ways rw, ways w
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id ;
+
+SELECT w.*
+FROM relation_ways rw, ways w
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id ;
+
+
+SELECT w.source, w.target
+FROM relation_ways rw, ways w
+WHERE rw.relation_id = ANY ('{4185910}'::int[]) AND rw.way_id = w.osm_id ;
+
+
+
+4471082
+4275312
+4475362
+
+
+
+
+
+
+
+
+
+
+
+

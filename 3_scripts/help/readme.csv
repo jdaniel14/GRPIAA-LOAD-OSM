@@ -1,0 +1,8 @@
+proceso;input;output
+p1_tipovia;;o1_tipovia.csv
+p2_via;;o2_via.csv
+p3_nodo;o2_via.csv;o3_nodo.csv,o4_arista.csv
+p4_distrito;i4_distritos.txt,i5_distritos.csv;o4_distritos.csv
+p5_redvial;i6_redvial.csv;o5_redvial
+p6_zonatransito;i7_zonatransito.csv,i8_zonatransito.csv;o6_zontransito.csv
+p7_minizona;o6_zontransito.csv;o7_minizona.csv
